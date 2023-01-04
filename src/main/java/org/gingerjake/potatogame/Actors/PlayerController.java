@@ -1,0 +1,167 @@
+package org.gingerjake.potatogame.Actors;
+
+import org.gingerjake.potatogame.Game;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class PlayerController {
+    private final Image pRight = new ImageIcon("Assets/Potato/NewMainR.png").getImage();
+    private final Image pLeft = new ImageIcon("Assets/Potato/NewMainL.png").getImage();
+    private final Image attackU = new ImageIcon("Assets/Attacks/Fist/FistU.png").getImage();
+    private final Image attackD = new ImageIcon("Assets/Attacks/Fist/FistD.png").getImage();
+    private final Image attackL = new ImageIcon("Assets/Attacks/Fist/FistL.png").getImage();
+    private final Image attackR = new ImageIcon("Assets/Attacks/Fist/FistR.png").getImage();
+    private int x;
+    private int y;
+    private int width;
+    private int height;
+    private int fistX;
+    private int fistY;
+    private boolean throwFist;
+    private boolean uping;
+    private boolean downing;
+    private boolean lefting;
+    private boolean righting;
+    private String playerDirection = "right";
+    private String fistDirection = null;
+
+    public void setPosition(int newX, int newY) {
+        x = newX;
+        y = newY;
+    }
+
+    public void setSize(int newWidth, int newHeight) {
+        width = newWidth;
+        height = newHeight;
+    }
+
+    public void setPlayerDirection(String newDir) {
+        playerDirection = newDir;
+    }
+
+    public void setUp(boolean up) {
+        uping = up;
+    }
+
+    public void setDown(boolean down) {
+        downing = down;
+    }
+
+    public void setLeft(boolean left) {
+        lefting = left;
+    }
+
+    public void setRight(boolean right) {
+        righting = right;
+    }
+
+    public void attack(String throwDirection) {
+        if(fistDirection == null) {
+            switch (throwDirection) {
+                case "up" -> fistDirection = "up";
+                case "down" -> fistDirection = "down";
+                case "left" -> fistDirection = "left";
+                case "right" -> fistDirection = "right";
+                default -> System.out.println("Invalid or wrong fist direction! Not throwing.");
+            }
+            throwFist = true;
+            fistX = x;
+            fistY = y;
+        }
+    }
+
+    public Image getFistImg() {
+        if (fistDirection != null) {
+            switch (fistDirection) {
+                case "up" -> {
+                    return attackU;
+                }
+                case "down" -> {
+                    return attackD;
+                }
+                case "left" -> {
+                    return attackL;
+                }
+                case "right" -> {
+                    return attackR;
+                }
+                default -> {
+                    System.out.println("Invalid attack direction.");
+                    return null;
+                }
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public Image getImg() {
+        if (playerDirection.equals("left")) {
+            return pLeft;
+        } else {
+            return pRight;
+        }
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getFistX() {
+        return fistX;
+    }
+
+    public int getFistY() {
+        return fistY;
+    }
+
+    public int getFistWidth() {
+        return (int) (width / 1.5);
+    }
+
+    public int getFistHeight() {
+        return height / 2;
+    }
+
+
+    public void tick() {
+        if (uping)
+            y--;
+        if (downing)
+            y++;
+        if (lefting) {
+            x--;
+            setPlayerDirection("left");
+        }
+        if (righting) {
+            x++;
+            setPlayerDirection("right");
+        }
+
+        if (fistDirection != null && throwFist) {
+            switch (fistDirection) {
+                case "up" -> fistY--;
+                case "down" -> fistY++;
+                case "left" -> fistX--;
+                case "right" -> fistX++;
+            }
+        }
+        if(fistX > Game.width || fistX == -getFistWidth() || fistY == -getFistHeight() || fistY > Game.height) {
+            fistDirection = null;
+            throwFist = false;
+        }
+    }
+}
