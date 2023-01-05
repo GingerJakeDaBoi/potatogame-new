@@ -47,7 +47,6 @@ public class Game extends JPanel implements Runnable {
             try {
                 //noinspection BusyWait
                 Thread.sleep(TARGET_TIME);
-                Game.player.tick();
 
                 //update width and height of the screen
                 width = getWidth();
