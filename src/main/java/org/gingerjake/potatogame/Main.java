@@ -43,6 +43,9 @@ public class Main {
                 if(e.getKeyCode() == KeyEvent.VK_D) {
                     Game.player.attack("right");
                 }
+                if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    Game.player.cancelAttack();
+                }
             }
             if (e.getID() == KeyEvent.KEY_RELEASED) {
                 if (e.getKeyCode() == KeyEvent.VK_UP) {

@@ -70,6 +70,10 @@ public class PlayerController {
             fistY = y;
         }
     }
+    public void cancelAttack() {
+        throwFist = false;
+        fistDirection = null;
+    }
 
     public Image getFistImg() {
         if (fistDirection != null) {
@@ -138,25 +142,26 @@ public class PlayerController {
 
 
     public void tick() {
+        int speed = 5;
         if (uping)
-            y--;
+            y -= speed;
         if (downing)
-            y++;
+            y += speed;
         if (lefting) {
-            x--;
+            x -= speed;
             setPlayerDirection("left");
         }
         if (righting) {
-            x++;
+            x += speed;
             setPlayerDirection("right");
         }
 
         if (fistDirection != null && throwFist) {
             switch (fistDirection) {
-                case "up" -> fistY--;
-                case "down" -> fistY++;
-                case "left" -> fistX--;
-                case "right" -> fistX++;
+                case "up" -> fistY -= 5;
+                case "down" -> fistY += 5;
+                case "left" -> fistX -= 5;
+                case "right" -> fistX += 5;
             }
         }
         if(fistX > Game.width || fistX == -getFistWidth() || fistY == -getFistHeight() || fistY > Game.height) {

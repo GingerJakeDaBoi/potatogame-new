@@ -11,8 +11,9 @@ public class Game extends JPanel implements Runnable {
     public static int height = 900; //900
     private StateManager sm = new StateManager();
     public static final PlayerController player = new PlayerController();
+
     public Game() {
-        setPreferredSize(new Dimension(width,height));
+        setPreferredSize(new Dimension(width, height));
         setFocusable(true);
         start();
     }
@@ -29,35 +30,31 @@ public class Game extends JPanel implements Runnable {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.clearRect(0,0,width,height);
+        g.clearRect(0, 0, width, height);
         sm.draw(g);
     }
+
     @SuppressWarnings("BusyWait")
     public void run() {
-        long start,elapsed,wait;
         sm = new StateManager();
 
-        while(isRunning) {
-            start = System.nanoTime();
+        while (isRunning) {
             tick();
             repaint();
             invalidate();
 
-            elapsed = System.nanoTime()-start;
             int FPS = 60;
             long TARGET_TIME = 1000 / FPS;
-            wait = (TARGET_TIME -elapsed) / 1000000;
 
-            if(wait <=0) wait = 5;
             try {
-                Thread.sleep(wait);
+                Thread.sleep(TARGET_TIME);
                 Game.player.tick();
 
                 //update width and height of the screen
                 width = getWidth();
                 height = getHeight();
 
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
