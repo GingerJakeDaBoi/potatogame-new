@@ -164,9 +164,10 @@ public class PlayerController {
                 case "right" -> fistX += 5;
             }
         }
-        if(fistX > Game.width || fistX == -getFistWidth() || fistY == -getFistHeight() || fistY > Game.height) {
-            fistDirection = null;
-            throwFist = false;
+
+        if(getFistX() > Game.width - getFistWidth() || getFistX() < 0 || getFistY() > Game.height - getFistHeight() || getFistY() < 0) {
+            cancelAttack();
         }
+
     }
 }

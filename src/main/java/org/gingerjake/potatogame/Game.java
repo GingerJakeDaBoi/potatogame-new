@@ -34,7 +34,6 @@ public class Game extends JPanel implements Runnable {
         sm.draw(g);
     }
 
-    @SuppressWarnings("BusyWait")
     public void run() {
         sm = new StateManager();
 
@@ -44,9 +43,9 @@ public class Game extends JPanel implements Runnable {
             invalidate();
 
             int FPS = 60;
-            long TARGET_TIME = 1000 / FPS;
-
+            long TARGET_TIME = (1000 / FPS);
             try {
+                //noinspection BusyWait
                 Thread.sleep(TARGET_TIME);
                 Game.player.tick();
 
