@@ -43,6 +43,10 @@ public class Main {
                 if(e.getKeyCode() == KeyEvent.VK_D) {
                     Game.player.attack("right");
                 }
+                if(e.getKeyCode() == KeyEvent.VK_P) {
+                    Game.player.hurt();
+                    System.out.println(Game.player.getHealth());
+                }
                 if(e.getKeyCode() == KeyEvent.VK_SPACE) {
                     Game.player.cancelAttack();
                 }

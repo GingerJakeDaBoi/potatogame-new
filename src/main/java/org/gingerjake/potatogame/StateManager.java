@@ -8,7 +8,7 @@ public class StateManager {
 
     public StateManager() {
         states = new Stack<>();
-        states.push(new TestState());
+        states.push(new PotatoLevel());
     }
 
     public static void setState(State state) {

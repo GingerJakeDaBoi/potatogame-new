@@ -18,6 +18,8 @@ public class PlayerController {
     private int height;
     private int fistX;
     private int fistY;
+    private static int health;
+    private static boolean hurting;
     private boolean throwFist;
     private boolean uping;
     private boolean downing;
@@ -54,25 +56,6 @@ public class PlayerController {
 
     public void setRight(boolean right) {
         righting = right;
-    }
-
-    public void attack(String throwDirection) {
-        if(fistDirection == null) {
-            switch (throwDirection) {
-                case "up" -> fistDirection = "up";
-                case "down" -> fistDirection = "down";
-                case "left" -> fistDirection = "left";
-                case "right" -> fistDirection = "right";
-                default -> System.out.println("Invalid or wrong fist direction! Not throwing.");
-            }
-            throwFist = true;
-            fistX = x;
-            fistY = y;
-        }
-    }
-    public void cancelAttack() {
-        throwFist = false;
-        fistDirection = null;
     }
 
     public Image getFistImg() {
@@ -139,6 +122,50 @@ public class PlayerController {
     public int getFistHeight() {
         return height / 2;
     }
+    public int getHealth() {
+        return health;
+    }
+    public void setHealth(int newHealth) {
+        health = newHealth;
+    }
+
+    public void attack(String throwDirection) {
+        if (fistDirection == null) {
+            switch (throwDirection) {
+                case "up" -> fistDirection = "up";
+                case "down" -> fistDirection = "down";
+                case "left" -> fistDirection = "left";
+                case "right" -> fistDirection = "right";
+                default -> System.out.println("Invalid or wrong fist direction! Not throwing.");
+            }
+            throwFist = true;
+            fistX = x;
+            fistY = y;
+        }
+    }
+
+    public void cancelAttack() {
+        throwFist = false;
+        fistDirection = null;
+    }
+
+    public void hurt() {
+        if (!hurting) {
+            health -= 1;
+            hurting = true;
+
+            //if the player was hurt, they can't be hurt again for 1 second
+            new Thread(() -> {
+                try {
+                    Thread.sleep(1000);
+                    hurting = false;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+
+    }
 
 
     public void tick() {
@@ -165,9 +192,8 @@ public class PlayerController {
             }
         }
 
-        if(getFistX() > Game.width - getFistWidth() || getFistX() < 0 || getFistY() > Game.height - getFistHeight() || getFistY() < 0) {
+        if (getFistX() > Game.width - getFistWidth() || getFistX() < 0 || getFistY() > Game.height - getFistHeight() || getFistY() < 0) {
             cancelAttack();
         }
-
     }
 }
