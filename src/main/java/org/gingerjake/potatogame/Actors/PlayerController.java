@@ -120,11 +120,11 @@ public class PlayerController {
     }
 
     public int getFistWidth() {
-        return (int) (width / 1.5);
+        return 96;
     }
 
     public int getFistHeight() {
-        return height / 2;
+        return 96;
     }
 
     public int getHealth() {
@@ -186,6 +186,19 @@ public class PlayerController {
         if (righting) {
             x += speed;
             setPlayerDirection("right");
+        }
+
+        if(x > Game.width - width) {
+            x = Game.width - width;
+        }
+        if(x < 0) {
+            x = 0;
+        }
+        if(y > Game.height - height) {
+            y = Game.height - height;
+        }
+        if(y < 0) {
+            y = 0;
         }
 
         if (fistDirection != null && throwFist) {
