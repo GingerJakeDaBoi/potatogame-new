@@ -91,6 +91,10 @@ public class PlayerController {
         }
     }
 
+    public boolean isThrowFist() {
+        return throwFist;
+    }
+
     public int getX() {
         return x;
     }
@@ -195,6 +199,11 @@ public class PlayerController {
 
         if (getFistX() > Game.width - getFistWidth() || getFistX() < 0 || getFistY() > Game.height - getFistHeight() || getFistY() < 0) {
             cancelAttack();
+        }
+
+        if(getHealth() <= 0) {
+            System.out.println("Game Over");
+            System.exit(0);
         }
     }
 }
