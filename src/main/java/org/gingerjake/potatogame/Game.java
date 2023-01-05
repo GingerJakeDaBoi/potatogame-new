@@ -57,4 +57,9 @@ public class Game extends JPanel implements Runnable {
             }
         }
     }
+
+    public static void exit() {
+        System.out.println("Thanks for playing!");
+        System.exit(0);
+    }
 }

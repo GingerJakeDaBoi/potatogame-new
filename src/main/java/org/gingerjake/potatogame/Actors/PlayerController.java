@@ -122,9 +122,11 @@ public class PlayerController {
     public int getFistHeight() {
         return height / 2;
     }
+
     public int getHealth() {
         return health;
     }
+
     public void setHealth(int newHealth) {
         health = newHealth;
     }
@@ -166,7 +168,6 @@ public class PlayerController {
         }
 
     }
-
 
     public void tick() {
         int speed = 5;

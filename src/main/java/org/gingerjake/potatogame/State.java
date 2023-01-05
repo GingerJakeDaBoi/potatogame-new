@@ -9,6 +9,7 @@ public abstract class State {
 
     public void draw(Graphics g) {
     }
+
     public void tick() {
 
     }

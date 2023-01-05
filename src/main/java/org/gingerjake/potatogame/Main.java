@@ -31,24 +31,26 @@ public class Main {
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
                     Game.player.setRight(true);
                 }
-                if(e.getKeyCode() == KeyEvent.VK_W) {
+                if (e.getKeyCode() == KeyEvent.VK_W) {
                     Game.player.attack("up");
                 }
-                if(e.getKeyCode() == KeyEvent.VK_A) {
+                if (e.getKeyCode() == KeyEvent.VK_A) {
                     Game.player.attack("left");
                 }
-                if(e.getKeyCode() == KeyEvent.VK_S) {
+                if (e.getKeyCode() == KeyEvent.VK_S) {
                     Game.player.attack("down");
                 }
-                if(e.getKeyCode() == KeyEvent.VK_D) {
+                if (e.getKeyCode() == KeyEvent.VK_D) {
                     Game.player.attack("right");
                 }
-                if(e.getKeyCode() == KeyEvent.VK_P) {
+                if (e.getKeyCode() == KeyEvent.VK_P) {
                     Game.player.hurt();
-                    System.out.println(Game.player.getHealth());
                 }
-                if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                     Game.player.cancelAttack();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    Game.exit();
                 }
             }
             if (e.getID() == KeyEvent.KEY_RELEASED) {

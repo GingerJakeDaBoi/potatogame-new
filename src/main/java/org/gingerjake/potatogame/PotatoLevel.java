@@ -47,7 +47,7 @@ public class PotatoLevel extends State {
         if (Game.player.getHealth() == 1) {
             g.drawImage(playerHeart, 3, 0, 48, 48, null);
             g.drawImage(playerHeartBroken, 54, 0, 48, 48, null);
-            g.drawImage(playerHeartBroken,105,0,48,48,null);
+            g.drawImage(playerHeartBroken, 105, 0, 48, 48, null);
         }
     }
 
