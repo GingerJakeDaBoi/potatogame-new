@@ -1,26 +1,19 @@
 package org.gingerjake.potatogame;
 
-import org.gingerjake.potatogame.Actors.Enemy;
-
 import javax.swing.*;
 import java.awt.*;
 
-public class PotatoLevel extends State {
+public class BaseLevel extends State {
     Image playerHeart = new ImageIcon("Assets/GUI/Heart.png").getImage();
     Image playerHeartBroken = new ImageIcon("Assets/GUI/HeartBroken.png").getImage();
-    Image enemy = new ImageIcon("Assets/Dummy/Red.png").getImage();
-    Enemy test = new Enemy(300,300,64,64,3,1,1,enemy);
 
-    public PotatoLevel() {
+    public BaseLevel() {
         super(sm);
     }
 
     @Override
     public void init() {
-        Game.player.setPosition(100, 100);
         Game.player.setSize(108, 192);
-
-        Game.player.setHealth(3);
     }
 
     @Override
@@ -31,10 +24,6 @@ public class PotatoLevel extends State {
                 Game.player.getFistHeight(), null);
         g.drawImage(Game.player.getImg(), Game.player.getX(), Game.player.getY(), Game.player.getWidth(),
                 Game.player.getHeight(), null);
-
-        if(!test.isDead()) {
-            g.drawImage(test.getAsset(), test.getX(), test.getY(), test.getWidth(), test.getHeight(), null);
-        }
 
         if (Game.player.getHealth() == 4) {
             g.drawImage(playerHeart, 3, 0, 48, 48, null);
@@ -63,10 +52,5 @@ public class PotatoLevel extends State {
     @Override
     public void tick() {
         Game.player.tick();
-
-        if(!test.isDead()) {
-            test.tick();
-        }
-
     }
 }

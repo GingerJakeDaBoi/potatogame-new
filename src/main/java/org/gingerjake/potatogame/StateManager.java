@@ -1,5 +1,7 @@
 package org.gingerjake.potatogame;
 
+import org.gingerjake.potatogame.Levels.Hub;
+
 import java.awt.*;
 import java.util.Stack;
 
@@ -8,7 +10,7 @@ public class StateManager {
 
     public StateManager() {
         states = new Stack<>();
-        states.push(new PotatoLevel());
+        states.push(new Hub());
     }
 
     public static void setState(State state) {
