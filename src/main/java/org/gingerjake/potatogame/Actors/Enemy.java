@@ -2,6 +2,7 @@ package org.gingerjake.potatogame.Actors;
 
 import org.gingerjake.potatogame.Game;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Enemy {
@@ -12,17 +13,15 @@ public class Enemy {
     private int health;
     private final int speed;
     private boolean enabled;
-    private final Image asset;
+    private final Image asset = new ImageIcon("Assets/Dummy/Red.png").getImage();
 
-    public Enemy(int x, int y, int width, int height, int health, int speed, int isEnabled, Image enemyAsset) {
+    public Enemy(int x, int y, int width, int height, int health, int speed) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.health = health;
         this.speed = speed;
-        this.enabled = isEnabled == 1;
-        this.asset = enemyAsset;
     }
 
     public void setEnabled(boolean enabled) {
@@ -42,16 +41,15 @@ public class Enemy {
     }
 
     public void takeDamage(int damage) {
-        int currentHealth = this.getHealth();
-        currentHealth -= damage;
-        this.setHealth(currentHealth);
+        this.setHealth(this.getHealth()-damage);
     }
 
     public Image getAsset() {
         return asset;
     }
 
-    public void setY(int y) {
+    public void setPosition(int x, int y) {
+        this.x = x;
         this.y = y;
     }
 

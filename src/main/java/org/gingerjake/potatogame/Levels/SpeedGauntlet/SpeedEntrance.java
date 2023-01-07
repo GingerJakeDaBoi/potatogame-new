@@ -1,5 +1,7 @@
 package org.gingerjake.potatogame.Levels.SpeedGauntlet;
 
+import org.gingerjake.potatogame.Actors.Enemy;
+import org.gingerjake.potatogame.Actors.Hitbox;
 import org.gingerjake.potatogame.BaseLevel;
 import org.gingerjake.potatogame.Game;
 import org.gingerjake.potatogame.Levels.Hub;
@@ -17,18 +19,34 @@ public class SpeedEntrance extends BaseLevel {
     int nextLvlY = -Game.height;
     final int currentLvlX = 0;
     int currentLvlY = 0;
+    //Hitbox for the right side
+    final Hitbox hitbox1 = new Hitbox(773,0,811,861,"left");
+    //hitbox for the left side
+    final Hitbox hitbox2 = new Hitbox(0,0,276,861,"right");
+    Enemy enemy;
 
     @Override
     public void init() {
         super.init();
         Game.player.setPosition(400, Game.height - Game.player.getHeight());
+        enemy = new Enemy(450,50,64,64,5,3);
+        enemy.setEnabled(true);
+
     }
 
     @Override
     public void draw(Graphics g) {
         g.drawImage(background, currentLvlX, currentLvlY, Game.width, Game.height, null);
         g.drawImage(nextLvl, nextLvlX, nextLvlY, Game.width, Game.height, null);
-        super.draw(g);
+
+        if(enemy.isEnabled()) {
+            g.drawImage(enemy.getAsset(), enemy.getX(), enemy.getY(),enemy.getWidth(),
+                    enemy.getHeight(), null);
+        }
+
+        if(!switching) {
+            super.draw(g);
+        }
     }
 
     @Override
@@ -47,5 +65,8 @@ public class SpeedEntrance extends BaseLevel {
             }
         }
         super.tick();
+        hitbox1.tick();
+        hitbox2.tick();
+        enemy.tick();
     }
 }
