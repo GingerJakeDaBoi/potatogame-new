@@ -9,7 +9,7 @@ public class Game extends JPanel implements Runnable {
     private boolean isRunning = false;
     public static int width = 1600; //1600
     public static int height = 900; //900
-    private StateManager sm = new StateManager();
+    private final StateManager sm = new StateManager();
     public static final PlayerController player = new PlayerController();
 
     public Game() {
@@ -34,28 +34,36 @@ public class Game extends JPanel implements Runnable {
         sm.draw(g);
     }
 
-    public void run() {
-        sm = new StateManager();
-
+    public void run() { //TODO: Add an FPS cap so the game doesn't generate 1.5M frames per second
+        long lastTime = System.nanoTime();
+        double amountOfTicks = 60.0;
+        double ns = 1000000000 / amountOfTicks;
+        double delta = 0;
+        long timer = System.currentTimeMillis();
+        int frames = 0;
         while (isRunning) {
-            tick();
-            repaint();
-            invalidate();
+            long now = System.nanoTime();
+            delta += (now - lastTime) / ns;
+            lastTime = now;
 
-            int FPS = 60;
-            long TARGET_TIME = (1000 / FPS);
-            try {
-                //noinspection BusyWait
-                Thread.sleep(TARGET_TIME);
+            while (delta >= 1) {
+                tick();
+                delta--;
+            }
 
-                //update width and height of the screen
-                width = getWidth();
-                height = getHeight();
+            if (isRunning) {
+                repaint();
+                invalidate();
+            }
+            frames++;
 
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (System.currentTimeMillis() - timer > 1000) {
+                timer += 1000;
+                System.out.println("FPS: " + frames);
+                frames = 0;
             }
         }
+        exit();
     }
 
     public static void exit() {
