@@ -9,6 +9,9 @@ public class Game extends JPanel implements Runnable {
     private boolean isRunning = false;
     public static int width = 1600; //1600
     public static int height = 900; //900
+    private static final double frameCap = 60.0; //TODO: Will be able to be set in game settings
+    public static int currentFPS = (int) frameCap;
+    public static final boolean debug = true;
     private final StateManager sm = new StateManager();
     public static final PlayerController player = new PlayerController();
 
@@ -24,8 +27,14 @@ public class Game extends JPanel implements Runnable {
         thread.start();
     }
 
-    public void tick() {
+    private void tick() {
         sm.tick();
+    }
+
+    private void render() {
+        tick();
+        repaint();
+        invalidate();
     }
 
     public void paintComponent(Graphics g) {
@@ -34,32 +43,28 @@ public class Game extends JPanel implements Runnable {
         sm.draw(g);
     }
 
-    public void run() { //TODO: Add an FPS cap so the game doesn't generate 1.5M frames per second
+    public void run() { //TODO: Higher FPS caps cause the game to run faster
         long lastTime = System.nanoTime();
-        double amountOfTicks = 60.0;
-        double ns = 1000000000 / amountOfTicks;
+        double targetTime = 1000000000 / frameCap;
         double delta = 0;
         long timer = System.currentTimeMillis();
         int frames = 0;
+
         while (isRunning) {
             long now = System.nanoTime();
-            delta += (now - lastTime) / ns;
+            delta += (now - lastTime) / targetTime;
             lastTime = now;
 
             while (delta >= 1) {
-                tick();
+                render();
                 delta--;
+                frames++;
             }
-
-            if (isRunning) {
-                repaint();
-                invalidate();
-            }
-            frames++;
 
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
                 System.out.println("FPS: " + frames);
+                currentFPS = frames;
                 frames = 0;
             }
         }

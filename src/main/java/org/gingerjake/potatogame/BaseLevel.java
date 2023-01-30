@@ -46,8 +46,14 @@ public class BaseLevel extends State {
             g.drawImage(playerHeartBroken, 54, 0, 48, 48, null);
             g.drawImage(playerHeartBroken, 105, 0, 48, 48, null);
         }
-    }
 
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.setColor(Color.BLACK);
+
+        if(Game.debug) {
+            g.drawString("FPS: " + Game.currentFPS, 0, 80); //each new debug string is + 60 y
+        }
+    }
 
     @Override
     public void tick() {
