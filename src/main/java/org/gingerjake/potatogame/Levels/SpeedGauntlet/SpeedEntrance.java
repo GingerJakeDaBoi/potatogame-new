@@ -13,7 +13,7 @@ import java.awt.*;
 public class SpeedEntrance extends BaseLevel {
     final Image background = new ImageIcon("Assets/SpeedGauntlet/Vertical.png").getImage();
     final Image nextLvl = new ImageIcon("Assets/SpeedGauntlet/PathFork.png").getImage();
-    boolean finished = true; //TODO: Change to false
+    boolean finished = false;
     boolean switching;
     final int nextLvlX = 0;
     int nextLvlY = -Game.height;
@@ -69,6 +69,8 @@ public class SpeedEntrance extends BaseLevel {
         hitbox2.tick();
         if(!enemy.isDead()) {
             enemy.tick();
+        } else if(!finished) {
+            finished = true;
         }
     }
 }

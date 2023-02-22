@@ -174,7 +174,7 @@ public class PlayerController {
     }
 
     public void tick() {
-        int speed = 5;
+        int speed = 10;
         if (uping)
             y -= speed;
         if (downing)

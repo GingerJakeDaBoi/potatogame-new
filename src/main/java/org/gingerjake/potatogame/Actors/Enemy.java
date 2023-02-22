@@ -13,7 +13,7 @@ public class Enemy {
     private int health;
     private final int speed;
     private boolean enabled;
-    private final Image asset = new ImageIcon("Assets/Dummy/Red.png").getImage();
+    private final Image asset;
 
     public Enemy(int x, int y, int width, int height, int health, int speed) {
         this.x = x;
@@ -22,6 +22,7 @@ public class Enemy {
         this.height = height;
         this.health = health;
         this.speed = speed;
+        this.asset = new ImageIcon("Assets/Dummy/Red.png").getImage();
     }
 
     public void setEnabled(boolean enabled) {
@@ -114,9 +115,9 @@ public class Enemy {
         if (!Game.player.isThrowFist()) {
             return;
         }
-        if (Game.player.getFistX() + Game.player.getFistWidth() <= this.x || Game.player.getFistX() >= this.x +
-                this.width || Game.player.getFistY() + Game.player.getFistHeight() <= this.y || Game.player.getFistY()
-                >= this.y + this.height) {
+        if (Game.player.getFistX() + Game.player.getFistWidth() <= x || Game.player.getFistX() >= x +
+                width || Game.player.getFistY() + Game.player.getFistHeight() <= y || Game.player.getFistY()
+                >= y + height) {
             return;
         }
         this.takeDamage(1);
