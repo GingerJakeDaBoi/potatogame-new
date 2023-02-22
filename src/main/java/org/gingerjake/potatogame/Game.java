@@ -7,9 +7,9 @@ import java.awt.*;
 
 public class Game extends JPanel implements Runnable {
     private boolean isRunning = false;
-    public static int width = 1600; //1600
+    public static int width = 1600; //1600 //TODO: If aspect ratio is not 16:9, make black bars automatically.
     public static int height = 900; //900
-    private static final double frameCap = 60.0; //TODO: Will be able to be set in game settings
+    private static final double frameCap = 60.0; //TODO: Might be able to set in game settings?
     public static int currentFPS = (int) frameCap;
     public static final boolean debug = true;
     private final StateManager sm = new StateManager();
@@ -59,6 +59,8 @@ public class Game extends JPanel implements Runnable {
                 render();
                 delta--;
                 frames++;
+                width = getWidth();
+                height = getHeight();
             }
 
             if (System.currentTimeMillis() - timer > 1000) {

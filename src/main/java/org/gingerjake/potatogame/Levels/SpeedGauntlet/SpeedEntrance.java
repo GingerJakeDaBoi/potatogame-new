@@ -20,7 +20,7 @@ public class SpeedEntrance extends BaseLevel {
     final int currentLvlX = 0;
     int currentLvlY = 0;
     //Hitbox for the right side
-    final Hitbox hitbox1 = new Hitbox(773,0,811,861,"left");
+    final Hitbox hitbox1 = new Hitbox(773,0,811,861,"left");//TODO: Could probably make them NOT hard coded???
     //hitbox for the left side
     final Hitbox hitbox2 = new Hitbox(0,0,276,861,"right");
     Enemy enemy;
@@ -67,6 +67,8 @@ public class SpeedEntrance extends BaseLevel {
         super.tick();
         hitbox1.tick();
         hitbox2.tick();
-        enemy.tick();
+        if(!enemy.isDead()) {
+            enemy.tick();
+        }
     }
 }
