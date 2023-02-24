@@ -2,8 +2,6 @@ package org.gingerjake.potatogame.Levels;
 
 import org.gingerjake.potatogame.BaseLevel;
 import org.gingerjake.potatogame.Game;
-import org.gingerjake.potatogame.Levels.SpeedGauntlet.SpeedEntrance;
-import org.gingerjake.potatogame.StateManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,9 +25,12 @@ public class Hub extends BaseLevel {
 
     @Override
     public void tick() {
+
         if (Game.player.getY() <= 0) {
-            StateManager.setState(new SpeedEntrance());
+//            StateManager.setState(new SpeedEntrance());
         }
+
+
         super.tick();
     }
 }

@@ -36,9 +36,10 @@ public class PlayerController {
         y = newY;
     }
 
-    public void setSize(int newWidth, int newHeight) {
-        width = newWidth;
-        height = newHeight;
+    public void setSize(int newWidth, int newHeight) { //Test everything with 1600x900 resolution
+        width = (int) (newWidth * ((double) (Game.width * Game.height) / (double) (1600 * 900)));
+        height = (int) (newHeight * ((double) (Game.width * Game.height) / (double) (1600 * 900)));
+        System.out.println("Player area set to " + width + "x" + height);
     }
 
     public void setUp(boolean up) {

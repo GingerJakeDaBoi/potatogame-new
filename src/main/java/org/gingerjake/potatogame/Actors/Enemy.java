@@ -18,8 +18,8 @@ public class Enemy {
     public Enemy(int x, int y, int width, int height, int health, int speed) {
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
+        this.width = (int) (width * ((double) (Game.width * Game.height) / (double) (1600 * 900)));
+        this.height = (int) (height * ((double) (Game.width * Game.height) / (double) (1600 * 900)));
         this.health = health;
         this.speed = speed;
         this.asset = new ImageIcon("Assets/Dummy/Red.png").getImage();
