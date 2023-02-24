@@ -14,9 +14,9 @@ public class PlayerController {
     private final Image attackR = new ImageIcon("Assets/Attacks/Fist/FistR.png").getImage();
     private int x;
     private int y;
-    int speedLimit = 15;
-    int xVel = 0;
-    int yVel = 0;
+    private int speedLimit = 15;
+    private int xVel = 0;
+    private int yVel = 0;
     private int width;
     private int height;
     private int fistX;
@@ -120,7 +120,7 @@ public class PlayerController {
     }
 
     public int getFistWidth() {
-        return 96;
+        return 96; //TODO: Don't hardcode!
     }
 
     public int getFistHeight() {

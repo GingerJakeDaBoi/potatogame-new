@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BaseLevel extends State {
-    Image playerHeart = new ImageIcon("Assets/GUI/Heart.png").getImage();
-    Image playerHeartBroken = new ImageIcon("Assets/GUI/HeartBroken.png").getImage();
+    private final Image playerHeart = new ImageIcon("Assets/GUI/Heart.png").getImage();
+    private final Image playerHeartBroken = new ImageIcon("Assets/GUI/HeartBroken.png").getImage();
 
     public BaseLevel() {
         super(sm);
