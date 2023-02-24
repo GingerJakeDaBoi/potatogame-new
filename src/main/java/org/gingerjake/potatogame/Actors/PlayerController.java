@@ -38,10 +38,6 @@ public class PlayerController {
         height = newHeight;
     }
 
-    public void setPlayerDirection(String newDir) {
-        playerDirection = newDir;
-    }
-
     public void setUp(boolean up) {
         uping = up;
     }
@@ -173,32 +169,67 @@ public class PlayerController {
 
     }
 
+    int speedLimit = 15;
+    int xVel = 0;
+    int yVel = 0;
     public void tick() {
-        int speed = 10;
-        if (uping)
-            y -= speed;
-        if (downing)
-            y += speed;
-        if (lefting) {
-            x -= speed;
-            setPlayerDirection("left");
+        if(downing) {
+            if(yVel < speedLimit % Game.currentFPS) {
+                yVel++;
+            } else {
+                yVel = speedLimit;
+            }
+        } else if (yVel > 0) {
+            yVel--;
         }
-        if (righting) {
-            x += speed;
-            setPlayerDirection("right");
+        if(uping) {
+            if(yVel > -speedLimit % Game.currentFPS) {
+                yVel--;
+            } else {
+                yVel = -speedLimit;
+            }
+        } else if (yVel < 0) {
+            yVel++;
         }
+        if(righting) {
+            playerDirection = "right";
+            if(xVel < speedLimit % Game.currentFPS) {
+                xVel++;
+            } else {
+                xVel = speedLimit;
+            }
+        } else if (xVel > 0) {
+            xVel--;
+        }
+        if(lefting) {
+            playerDirection = "left";
+            if(xVel > -speedLimit  % Game.currentFPS) {
+                xVel--;
+            } else {
+                xVel = -speedLimit;
+            }
+        } else if(xVel < 0) {
+            xVel++;
+        }
+
+        x += xVel;
+        y += yVel;
 
         if (x > Game.width - width) {
             x = Game.width - width;
+            xVel = 0;
         }
         if (x < 0) {
             x = 0;
+            xVel = 0;
         }
         if (y > Game.height - height) {
             y = Game.height - height;
+            yVel = 0;
         }
         if (y < 0) {
             y = 0;
+            yVel = 0;
         }
 
         if (fistDirection != null && throwFist) {

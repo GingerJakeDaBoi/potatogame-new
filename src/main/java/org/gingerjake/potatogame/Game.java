@@ -32,8 +32,8 @@ public class Game extends JPanel implements Runnable {
     }
 
     private void render() {
-        tick();
         repaint();
+        tick();
         invalidate();
     }
 
