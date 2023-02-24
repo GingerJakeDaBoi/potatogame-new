@@ -71,9 +71,10 @@ public class Game extends JPanel implements Runnable {
                 Thread.yield();
 
                 try {
+                    //noinspection BusyWait
                     Thread.sleep(1);
-                } catch (Exception ignored) {
-
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
                 now = System.nanoTime();
