@@ -14,6 +14,9 @@ public class PlayerController {
     private final Image attackR = new ImageIcon("Assets/Attacks/Fist/FistR.png").getImage();
     private int x;
     private int y;
+    int speedLimit = 15;
+    int xVel = 0;
+    int yVel = 0;
     private int width;
     private int height;
     private int fistX;
@@ -169,12 +172,10 @@ public class PlayerController {
 
     }
 
-    int speedLimit = 15;
-    int xVel = 0;
-    int yVel = 0;
+
     public void tick() {
         if(downing) {
-            if(yVel < speedLimit % Game.currentFPS) {
+            if(yVel < speedLimit) {
                 yVel++;
             } else {
                 yVel = speedLimit;
@@ -183,7 +184,7 @@ public class PlayerController {
             yVel--;
         }
         if(uping) {
-            if(yVel > -speedLimit % Game.currentFPS) {
+            if(yVel > -speedLimit) {
                 yVel--;
             } else {
                 yVel = -speedLimit;
@@ -193,7 +194,7 @@ public class PlayerController {
         }
         if(righting) {
             playerDirection = "right";
-            if(xVel < speedLimit % Game.currentFPS) {
+            if(xVel < speedLimit) {
                 xVel++;
             } else {
                 xVel = speedLimit;
@@ -203,7 +204,7 @@ public class PlayerController {
         }
         if(lefting) {
             playerDirection = "left";
-            if(xVel > -speedLimit  % Game.currentFPS) {
+            if(xVel > -speedLimit) {
                 xVel--;
             } else {
                 xVel = -speedLimit;

@@ -20,9 +20,9 @@ public class SpeedEntrance extends BaseLevel {
     final int currentLvlX = 0;
     int currentLvlY = 0;
     //Hitbox for the right side
-    final Hitbox hitbox1 = new Hitbox(773,0,811,861,"left");//TODO: Could probably make them NOT hard coded???
+    final Hitbox hitbox1 = new Hitbox((int) (Game.width * .17),0,1,861,"right");//TODO: Could probably make them NOT hard coded???
     //hitbox for the left side
-    final Hitbox hitbox2 = new Hitbox(0,0,276,861,"right");
+    final Hitbox hitbox2 = new Hitbox((int) (Game.width * .485),0,1,861,"left");
     Enemy enemy;
 
     @Override

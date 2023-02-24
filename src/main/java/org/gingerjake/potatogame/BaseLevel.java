@@ -51,7 +51,7 @@ public class BaseLevel extends State {
         g.setColor(Color.BLACK);
 
         if(Game.debug) {
-            g.drawString("FPS: " + Game.currentFPS, 0, 80); //each new debug string is + 60 y
+            g.drawString("Player Location: " + Game.player.getX() + ", " + Game.player.getY(), 0, 80); //each new debug string is + 60 y
         }
     }
 
