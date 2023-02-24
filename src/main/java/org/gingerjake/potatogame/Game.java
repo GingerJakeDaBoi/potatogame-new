@@ -8,7 +8,7 @@ import java.awt.*;
 public class Game extends JPanel implements Runnable {
     private boolean isRunning = false;
     public static int width = 1600; //1600 //TODO: If aspect ratio is not 16:9, make black bars automatically.
-    public static int height = 900; //900 //TODO: Make it possible to change resolution without the game being sad
+    public static int height = 900; //900 //TODO: Make it possible to change resolution without the game being sad, might fix with a title screen?
     private static final double frameCap = 60.0; //TODO: Might be able to set in game settings?
     public static final boolean debug = true;
     private final StateManager sm = new StateManager();
@@ -22,6 +22,8 @@ public class Game extends JPanel implements Runnable {
 
     private void start() {
         isRunning = true;
+        width = getWidth();
+        height = getHeight();
         Thread thread = new Thread(this);
         thread.start();
     }
@@ -37,12 +39,11 @@ public class Game extends JPanel implements Runnable {
     }
 
     public void run() { //TODO: Higher FPS caps cause the game to run faster
-        //Written based on https://stackoverflow.com/questions/65907092/where-should-i-put-the-game-loop-in-the-swing-app
         final double updateTime = 1000000000 / frameCap;
-        //If we are able to get as high as this FPS, don't render again.
+
         final int maxUpdatesBeforeRender = 60;
         double lastUpdateTime = System.nanoTime();
-        double lastRenderTime = System.nanoTime(); //not redundant
+        double lastRenderTime;
 
         while (isRunning) {
             double now = System.nanoTime();
@@ -60,7 +61,6 @@ public class Game extends JPanel implements Runnable {
                 lastUpdateTime = now - updateTime;
             }
 
-            //Render. To do so, we need to calculate interpolation for a smooth render.
             //float interpolation = Math.min(1.0f, (float) ((now - lastUpdateTime) / updateTime)); //TODO: Maybe find out what this is
             tick();
 
@@ -78,6 +78,9 @@ public class Game extends JPanel implements Runnable {
 
                 now = System.nanoTime();
             }
+
+            width = getWidth();
+            height = getHeight();
         }
         exit();
     }
