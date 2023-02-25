@@ -1,14 +1,18 @@
 package org.gingerjake.potatogame;
 
 import org.gingerjake.potatogame.Actors.PlayerController;
+import org.gingerjake.potatogame.Levels.Hub;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Game extends JPanel implements Runnable {
     private boolean isRunning = false;
-    public static int width = 1600; //1600 //TODO: If aspect ratio is not 16:9, make black bars automatically.
-    public static int height = 900; //900 //TODO: Make it possible to change resolution without the game being sad, might fix with a title screen?
+    private static boolean gameStarted = false;
+    public static int width = 1600; //1600 //TODO: If aspect ratio is not 16:9, make black bars
+    // automatically.
+    public static int height = 900; //900 //TODO: Make it possible to change resolution without the
+    // game being sad, might fix with a title screen?
     private static final double frameCap = 60.0; //TODO: Might be able to set in game settings?
     public static final boolean debug = true;
     private final StateManager sm = new StateManager();
@@ -17,6 +21,7 @@ public class Game extends JPanel implements Runnable {
     public Game() {
         setPreferredSize(new Dimension(width, height));
         setFocusable(true);
+
         start();
     }
 
@@ -84,6 +89,13 @@ public class Game extends JPanel implements Runnable {
             height = getHeight();
         }
         exit();
+    }
+
+    public static void beginGame() {
+        if(!gameStarted) {
+            StateManager.setState(new Hub());
+            gameStarted = true;
+        }
     }
 
     public static void exit() {

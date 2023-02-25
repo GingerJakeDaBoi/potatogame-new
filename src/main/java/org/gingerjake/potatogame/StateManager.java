@@ -1,6 +1,6 @@
 package org.gingerjake.potatogame;
 
-import org.gingerjake.potatogame.Levels.Hub;
+import org.gingerjake.potatogame.Levels.PauseScreen;
 
 import java.awt.*;
 import java.util.Stack;
@@ -10,7 +10,7 @@ public class StateManager {
 
     public StateManager() {
         states = new Stack<>();
-        states.push(new Hub());
+        states.push(new PauseScreen());
     }
 
     public static void setState(State state) {

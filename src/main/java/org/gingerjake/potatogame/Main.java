@@ -52,6 +52,9 @@ public class Main {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     Game.exit();
                 }
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    Game.beginGame();
+                }
             }
             if (e.getID() == KeyEvent.KEY_RELEASED) {
                 if (e.getKeyCode() == KeyEvent.VK_UP) {

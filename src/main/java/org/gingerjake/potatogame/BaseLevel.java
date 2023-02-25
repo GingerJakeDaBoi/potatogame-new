@@ -13,7 +13,7 @@ public class BaseLevel extends State {
 
     @Override
     public void init() {
-        Game.player.setSize(108, 192);
+
     }
 
     @Override
