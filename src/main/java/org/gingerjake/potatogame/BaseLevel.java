@@ -13,17 +13,17 @@ public class BaseLevel extends State {
 
     @Override
     public void init() {
-
+        System.out.println("Switching level to " + StateManager.getState());
     }
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(Game.player.getFistImg(), Game.player.getFistX(), Game.player.getFistY(), Game.player.getFistWidth(),
-                Game.player.getFistHeight(), null);
-        g.drawImage(Game.player.getFistImg(), Game.player.getFistX(), Game.player.getFistY(), Game.player.getFistWidth(),
-                Game.player.getFistHeight(), null);
-        g.drawImage(Game.player.getImg(), Game.player.getX(), Game.player.getY(), Game.player.getWidth(),
-                Game.player.getHeight(), null);
+        g.drawImage(Game.player.getFistImg(), Game.player.getFistX(), Game.player.getFistY(),
+                Game.player.getFistWidth(), Game.player.getFistHeight(), null);
+        g.drawImage(Game.player.getFistImg(), Game.player.getFistX(), Game.player.getFistY(),
+                Game.player.getFistWidth(), Game.player.getFistHeight(), null);
+        g.drawImage(Game.player.getImg(), Game.player.getX(), Game.player.getY(),
+                Game.player.getWidth(), Game.player.getHeight(), null);
 
         if (Game.player.getHealth() == 4) {
             g.drawImage(playerHeart, 3, 0, 48, 48, null);
@@ -51,7 +51,10 @@ public class BaseLevel extends State {
         g.setColor(Color.BLACK);
 
         if(Game.debug) {
-            g.drawString("Player Location: " + Game.player.getX() + ", " + Game.player.getY(), 0, 80); //each new debug string is + 60 y
+            g.drawString("Player Location: " + Game.player.getX() + ", " +
+                            Game.player.getY(), 0 , 80); //each new debug string is + 40 y
+            g.drawString("Current JFrame Resolution: " + Game.width  + ", " +
+                    Game.height,0,120); //Things are tested at 1600x900
         }
     }
 
