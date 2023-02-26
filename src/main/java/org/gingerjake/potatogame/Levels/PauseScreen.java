@@ -22,6 +22,6 @@ public class PauseScreen extends State {
 
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.setColor(Color.WHITE);
-        g.drawString("Press Enter to Start", (int) (Game.width * .05 / 2), Game.height / 2);
+        g.drawString("Press Enter to Start", (int) (Game.width * .05), Game.height / 2);
     }
 }
