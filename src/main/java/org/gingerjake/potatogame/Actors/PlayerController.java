@@ -14,7 +14,7 @@ public class PlayerController {
     private final Image attackR = new ImageIcon("Assets/Attacks/Fist/FistR.png").getImage();
     private int x;
     private int y;
-    private int speedLimit = 15;
+    private int speedLimit = 15; //TODO: Will change once speed upgrade is available
     private int xVel = 0;
     private int yVel = 0;
     private int width;
@@ -78,17 +78,15 @@ public class PlayerController {
                     return null;
                 }
             }
-        } else {
-            return null;
         }
+        return null;
     }
 
     public Image getImg() {
         if (playerDirection.equals("left")) {
             return pLeft;
-        } else {
-            return pRight;
         }
+        return pRight;
     }
 
     public boolean isThrowFist() {
@@ -175,6 +173,7 @@ public class PlayerController {
 
 
     public void tick() {
+        //TODO: This code is all yucky and I want it gone
         if(downing) {
             if(yVel < speedLimit) {
                 yVel++;

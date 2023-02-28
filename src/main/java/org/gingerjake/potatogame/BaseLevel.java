@@ -47,7 +47,7 @@ public class BaseLevel extends State {
             g.drawImage(playerHeartBroken, 105, 0, 48, 48, null);
         }
 
-        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.setFont(Game.genericFont);
         g.setColor(Color.BLACK);
 
         if(Game.debug) {

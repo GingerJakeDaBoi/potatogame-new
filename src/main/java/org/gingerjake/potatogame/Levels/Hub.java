@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Hub extends BaseLevel {
-    final Image background = new ImageIcon("Assets/Dummy/GreenDitherBG.png").getImage();
+    private final Image background = new ImageIcon("Assets/Dummy/GreenDitherBG.png").getImage();
 
     @Override
     public void init() {

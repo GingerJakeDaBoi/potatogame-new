@@ -10,8 +10,9 @@ import java.awt.event.KeyEvent;
 public class Game extends JPanel implements Runnable {
     private boolean isRunning = false;
     private static boolean gameStarted = false;
+    public static Font genericFont = new Font("Arial", Font.BOLD, 20);
     public static int width = 1600; //1600 //TODO: If aspect ratio is not 16:9, make black bars
-    public static int height = 900;
+    public static int height = 900; //900
     private static final double frameCap = 60.0; //TODO: Might be able to set in game settings?
     public static final boolean debug = true;
     private final StateManager sm = new StateManager();

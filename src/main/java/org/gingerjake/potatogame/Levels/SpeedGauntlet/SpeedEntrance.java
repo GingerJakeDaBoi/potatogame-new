@@ -4,26 +4,23 @@ import org.gingerjake.potatogame.Actors.Enemy;
 import org.gingerjake.potatogame.Actors.Hitbox;
 import org.gingerjake.potatogame.BaseLevel;
 import org.gingerjake.potatogame.Game;
-import org.gingerjake.potatogame.Levels.Hub;
 import org.gingerjake.potatogame.StateManager;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class SpeedEntrance extends BaseLevel {
-    final Image background = new ImageIcon("Assets/SpeedGauntlet/Vertical.png").getImage();
-    final Image nextLvl = new ImageIcon("Assets/SpeedGauntlet/PathFork.png").getImage();
-    boolean finished = false;
-    boolean switching;
-    final int nextLvlX = 0;
-    int nextLvlY = -Game.height;
-    final int currentLvlX = 0;
-    int currentLvlY = 0;
+    private final Image background = new ImageIcon("Assets/SpeedGauntlet/Vertical.png").getImage();
+    private final Image nextLvl = new ImageIcon("Assets/SpeedGauntlet/PathFork.png").getImage();
+    private boolean finished = false;
+    private boolean switching;
+    private int nextLvlY = -Game.height;
+    private int currentLvlY = 0;
     //Hitbox for the right side
-    final Hitbox hitbox1 = new Hitbox((int) (Game.width * .17),0,1,861,"right");//TODO: Could probably make them NOT hard coded???
+    private final Hitbox hitbox1 = new Hitbox((int) (Game.width * .17),0,1,861,"right");//TODO: Could probably make them NOT hard coded???
     //hitbox for the left side
-    final Hitbox hitbox2 = new Hitbox((int) (Game.width * .485),0,1,861,"left");
-    Enemy enemy;
+    private final Hitbox hitbox2 = new Hitbox((int) (Game.width * .485),0,1,861,"left");
+    private Enemy enemy;
 
     @Override
     public void init() {
@@ -36,7 +33,9 @@ public class SpeedEntrance extends BaseLevel {
 
     @Override
     public void draw(Graphics g) {
+        int currentLvlX = 0;
         g.drawImage(background, currentLvlX, currentLvlY, Game.width, Game.height, null);
+        int nextLvlX = 0;
         g.drawImage(nextLvl, nextLvlX, nextLvlY, Game.width, Game.height, null);
 
         if(enemy.isEnabled()) {
@@ -60,7 +59,7 @@ public class SpeedEntrance extends BaseLevel {
                     currentLvlY += 9;
                     nextLvlY += 9;
                 } else {
-                    StateManager.setState(new Hub()); //TODO: Change to next level
+                    StateManager.setState(new SpeedFork()); //TODO: Change to next level
                 }
             }
         }
@@ -69,7 +68,8 @@ public class SpeedEntrance extends BaseLevel {
         hitbox2.tick();
         if(!enemy.isDead()) {
             enemy.tick();
-        } else if(!finished) {
+        }
+        if(!finished) {
             finished = true;
         }
     }
