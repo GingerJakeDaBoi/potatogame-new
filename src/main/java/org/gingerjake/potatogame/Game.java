@@ -1,13 +1,11 @@
 package org.gingerjake.potatogame;
 
 import org.gingerjake.potatogame.Actors.PlayerController;
-import org.gingerjake.potatogame.Levels.Hub;
 import org.gingerjake.potatogame.Levels.PauseScreen;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.lang.reflect.Constructor;
 
 public class Game extends JPanel implements Runnable {
     private boolean isRunning = false;
@@ -36,7 +34,7 @@ public class Game extends JPanel implements Runnable {
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
                     Game.player.setLeft(true);
-                    PauseScreen.optionDown();;
+                    PauseScreen.optionDown();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
                     Game.player.setRight(true);

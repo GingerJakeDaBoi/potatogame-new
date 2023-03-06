@@ -76,10 +76,6 @@ public class PauseScreen extends State {
         g.drawString("Press Enter to Start", (int) (Game.width * .05), Game.height / 2);
     }
 
-    @Override
-    public void tick() {
-
-    }
     public static void optionUp() {
         if(option < 1) {
             option++;
