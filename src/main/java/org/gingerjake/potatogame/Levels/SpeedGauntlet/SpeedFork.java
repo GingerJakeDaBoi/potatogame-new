@@ -25,16 +25,11 @@ public class SpeedFork extends BaseLevel {
     final int nextRightLvlY = 0;
     int currentLvlX = 0;
     int currentLvlY = 0;
-    //Hitbox for the top part of the bottom right side
-    final Hitbox hitbox1a = new Hitbox(780,621,Game.width,1,"up");
-    //now the left part
-    final Hitbox hitbox1b = new Hitbox(773,621,1, Game.height,"left");
-    //Hitbox for the bottom part of the top right side
-    final Hitbox hitbox2a = new Hitbox(790,225,Game.width,1,"down");
-    //now the left part
-    final Hitbox hitbox2b = new Hitbox(773,0,1,205,"left");
-    //hitbox for the right side
-    final Hitbox hitbox3 = new Hitbox(0,0,276,861,"right");
+    final Hitbox hitboxTopBR = new Hitbox((int) (Game.width * .50), (int) (Game.height * .72),Game.width,1,"up");
+    final Hitbox hitboxLeftBR = new Hitbox((int) (Game.width * .49), (int) (Game.height * .72),1, Game.height,"left");
+    final Hitbox hitboxBottomTR = new Hitbox((int) (Game.width * .50), (int) (Game.height * .25),Game.width,1,"down");
+    final Hitbox hitboxLeftTR = new Hitbox((int) (Game.width * .49),0,1, (int) (Game.height * .2),"left");
+    final Hitbox hitboxLeft = new Hitbox(0,0, (int) (Game.width * .17),Game.height,"right");
 
     @Override
     public void init() {
@@ -43,6 +38,8 @@ public class SpeedFork extends BaseLevel {
 
         enemy1 = new Enemy(450, 50, 64, 64, 5, 3);
         enemy2 = new Enemy(1350, 300, 64, 64, 5, 3);
+        enemy1.setEnabled(true);
+        enemy2.setEnabled(true);
     }
 
     @Override
@@ -72,16 +69,15 @@ public class SpeedFork extends BaseLevel {
         if(!enemy2.isDead()) {
             enemy2.tick();
         }
-
         if (enemy1.isDead() && enemy2.isDead()) {
             finished = true;
         }
 
-        hitbox1a.tick();
-        hitbox1b.tick();
-        hitbox2a.tick();
-        hitbox2b.tick();
-        hitbox3.tick();
+        hitboxTopBR.tick();
+        hitboxLeftBR.tick();
+        hitboxBottomTR.tick();
+        hitboxLeftTR.tick();
+        hitboxLeft.tick();
 
         if (finished) {
             if (Game.player.getY() == 0) {
@@ -100,8 +96,8 @@ public class SpeedFork extends BaseLevel {
                     Game.player.setPosition(Game.player.getX(),Game.player.getY()-5);
 
                     if (nextUpLvlY < 0) {
-                        currentLvlY += 3;
-                        nextUpLvlY += 3;
+                        currentLvlY += 9;
+                        nextUpLvlY += 9;
                     } else {
                         StateManager.setState(new Hub());
                     }
@@ -111,8 +107,8 @@ public class SpeedFork extends BaseLevel {
                     Game.player.setPosition(Game.player.getX() + 5,Game.player.getY());
 
                     if (nextRightLvlX > 0) {
-                        currentLvlX -= 6;
-                        nextRightLvlX -= 6;
+                        currentLvlX -= 18;
+                        nextRightLvlX -= 18;
                     } else {
                         StateManager.setState(new Hub());
                     }

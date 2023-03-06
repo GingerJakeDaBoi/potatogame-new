@@ -19,14 +19,12 @@ public class BaseLevel extends State {
     @Override
     public void draw(Graphics g) {
         g.drawImage(Game.player.getFistImg(), Game.player.getFistX(), Game.player.getFistY(),
-                Game.player.getFistWidth(), Game.player.getFistHeight(), null);
-        g.drawImage(Game.player.getFistImg(), Game.player.getFistX(), Game.player.getFistY(),
-                Game.player.getFistWidth(), Game.player.getFistHeight(), null);
+                Game.player.getFistScale(), Game.player.getFistScale(), null);
         g.drawImage(Game.player.getImg(), Game.player.getX(), Game.player.getY(),
                 Game.player.getWidth(), Game.player.getHeight(), null);
 
         if (Game.player.getHealth() == 4) {
-            g.drawImage(playerHeart, 3, 0, 48, 48, null);
+            g.drawImage(playerHeart, 3, 0, 48, 48, null); //TODO: Heart positions are hardcoded
             g.drawImage(playerHeart, 54, 0, 48, 48, null);
             g.drawImage(playerHeart, 105, 0, 48, 48, null);
             g.drawImage(playerHeart, 156, 0, 48, 48, null);

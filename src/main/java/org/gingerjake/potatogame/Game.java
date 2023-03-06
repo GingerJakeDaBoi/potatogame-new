@@ -2,18 +2,20 @@ package org.gingerjake.potatogame;
 
 import org.gingerjake.potatogame.Actors.PlayerController;
 import org.gingerjake.potatogame.Levels.Hub;
+import org.gingerjake.potatogame.Levels.PauseScreen;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.lang.reflect.Constructor;
 
 public class Game extends JPanel implements Runnable {
     private boolean isRunning = false;
-    private static boolean gameStarted = false;
-    public static Font genericFont = new Font("Arial", Font.BOLD, 20);
+    public static final String build = "PotatoGame-RW-refactorSpeed-1";
+    public static final Font genericFont = new Font("Arial", Font.BOLD, 20);
     public static int width = 1600; //1600 //TODO: If aspect ratio is not 16:9, make black bars
     public static int height = 900; //900
-    private static final double frameCap = 60.0; //TODO: Might be able to set in game settings?
+    private static final double frameCap = 60.0; //going to stay 60 at all times
     public static final boolean debug = true;
     private final StateManager sm = new StateManager();
     public static final PlayerController player = new PlayerController();
@@ -34,9 +36,11 @@ public class Game extends JPanel implements Runnable {
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
                     Game.player.setLeft(true);
+                    PauseScreen.optionDown();;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
                     Game.player.setRight(true);
+                    PauseScreen.optionUp();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_W) {
                     Game.player.attack("up");
@@ -57,10 +61,14 @@ public class Game extends JPanel implements Runnable {
                     Game.player.cancelAttack();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    Game.exit();
+                    try {
+                        Game.pause();
+                    } catch (InstantiationException | IllegalAccessException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    Game.beginGame();
+                    PauseScreen.select();
                 }
             }
             if (e.getID() == KeyEvent.KEY_RELEASED) {
@@ -83,6 +91,10 @@ public class Game extends JPanel implements Runnable {
         start();
     }
 
+    private static void pause() throws InstantiationException, IllegalAccessException {
+        StateManager.setState(new PauseScreen(StateManager.getState().newInstance())); //TODO: Throws errors every time, ALSO USING DEPRECATED METHOD!!!!
+    }
+
     private void start() {
         isRunning = true;
         width = getWidth();
@@ -102,7 +114,7 @@ public class Game extends JPanel implements Runnable {
         sm.draw(g);
     }
 
-    public void run() { //TODO: Higher FPS caps cause the game to run faster
+    public void run() {
         final double updateTime = 1000000000 / frameCap;
 
         final int maxUpdatesBeforeRender = 60;
@@ -125,7 +137,7 @@ public class Game extends JPanel implements Runnable {
                 lastUpdateTime = now - updateTime;
             }
 
-            //float interpolation = Math.min(1.0f, (float) ((now - lastUpdateTime) / updateTime)); //TODO: Maybe find out what this is
+            //float interpolation = Math.min(1.0f, (float) ((now - lastUpdateTime) / updateTime)); //TODO: Maybe find out what this is, may help stuttering on 120hz
             tick();
 
             lastRenderTime = now;
@@ -148,13 +160,6 @@ public class Game extends JPanel implements Runnable {
             height = getHeight();
         }
         exit();
-    }
-
-    public static void beginGame() {
-        if(!gameStarted) {
-            StateManager.setState(new Hub());
-            gameStarted = true;
-        }
     }
 
     public static void exit() {

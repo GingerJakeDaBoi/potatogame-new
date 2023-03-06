@@ -99,8 +99,8 @@ public class Enemy {
         if (!this.enabled) {
             return;
         }
-        if (Game.player.getX() + Game.player.getWidth() > this.x && Game.player.getX() < this.x + this.width &&
-                Game.player.getY() + Game.player.getHeight() > this.y && Game.player.getY() < this.y + this.height) {
+        if (Game.player.getX() + Game.player.getWidth() > x && Game.player.getX() < x + width &&
+                Game.player.getY() + Game.player.getHeight() > y && Game.player.getY() < y + height) {
             Game.player.hurt();
         }
 
@@ -110,8 +110,8 @@ public class Enemy {
         if (!Game.player.isThrowFist()) {
             return;
         }
-        if (Game.player.getFistX() + Game.player.getFistWidth() <= x || Game.player.getFistX() >= x +
-                width || Game.player.getFistY() + Game.player.getFistHeight() <= y || Game.player.getFistY()
+        if (Game.player.getFistX() + Game.player.getFistScale() <= x || Game.player.getFistX() >= x +
+                width || Game.player.getFistY() + Game.player.getFistScale() <= y || Game.player.getFistY()
                 >= y + height) {
             return;
         }

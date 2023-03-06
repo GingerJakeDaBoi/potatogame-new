@@ -59,7 +59,7 @@ public class SpeedEntrance extends BaseLevel {
                     currentLvlY += 9;
                     nextLvlY += 9;
                 } else {
-                    StateManager.setState(new SpeedFork()); //TODO: Change to next level
+                    StateManager.setState(new SpeedFork());
                 }
             }
         }

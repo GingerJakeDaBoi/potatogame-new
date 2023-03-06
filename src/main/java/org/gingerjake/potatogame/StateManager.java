@@ -1,5 +1,6 @@
 package org.gingerjake.potatogame;
 
+import org.gingerjake.potatogame.Levels.Hub;
 import org.gingerjake.potatogame.Levels.PauseScreen;
 
 import java.awt.*;
@@ -10,15 +11,15 @@ public class StateManager {
 
     public StateManager() {
         states = new Stack<>();
-        states.push(new PauseScreen());
+        states.push(new PauseScreen(new Hub()));
     }
 
     public static void setState(State state) {
         states.push(state);
     }
 
-    public static String getState() {
-        return states.peek().getClass().getSimpleName();
+    public static Class<? extends State> getState() {
+        return states.peek().getClass();
     }
 
     public void tick() {

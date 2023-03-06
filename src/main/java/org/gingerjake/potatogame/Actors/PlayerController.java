@@ -117,12 +117,8 @@ public class PlayerController {
         return fistY;
     }
 
-    public int getFistWidth() {
-        return 96; //TODO: Don't hardcode!
-    }
-
-    public int getFistHeight() {
-        return 96;
+    public int getFistScale() {
+        return (int) (getWidth() / 1.5);
     }
 
     public int getHealth() {
@@ -242,7 +238,7 @@ public class PlayerController {
             }
         }
 
-        if (getFistX() > Game.width - getFistWidth() || getFistX() < 0 || getFistY() > Game.height - getFistHeight() || getFistY() < 0) {
+        if (getFistX() > Game.width - getFistScale() || getFistX() < 0 || getFistY() > Game.height - getFistScale() || getFistY() < 0) {
             cancelAttack();
         }
 
