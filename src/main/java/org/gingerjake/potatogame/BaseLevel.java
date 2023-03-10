@@ -12,9 +12,7 @@ public class BaseLevel extends State {
     }
 
     @Override
-    public void init() {
-        System.out.println("Switching level to " + StateManager.getState());
-    }
+    public void init() {}
 
     @Override
     public void draw(Graphics g) {

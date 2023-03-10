@@ -5,6 +5,7 @@ import org.gingerjake.potatogame.Actors.Hitbox;
 import org.gingerjake.potatogame.BaseLevel;
 import org.gingerjake.potatogame.Game;
 import org.gingerjake.potatogame.Levels.Hub;
+import org.gingerjake.potatogame.Levels.SpeedGauntlet.Up.SpeedVertical1;
 import org.gingerjake.potatogame.StateManager;
 
 import javax.swing.*;
@@ -99,7 +100,7 @@ public class SpeedFork extends BaseLevel {
                         currentLvlY += 9;
                         nextUpLvlY += 9;
                     } else {
-                        StateManager.setState(new Hub());
+                        StateManager.setState(new SpeedVertical1());
                     }
                 }
 

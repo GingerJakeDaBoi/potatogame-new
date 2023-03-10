@@ -6,6 +6,7 @@ import org.gingerjake.potatogame.Levels.PauseScreen;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.lang.reflect.InvocationTargetException;
 
 public class Game extends JPanel implements Runnable {
     private boolean isRunning = false;
@@ -61,7 +62,8 @@ public class Game extends JPanel implements Runnable {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     try {
                         Game.pause();
-                    } catch (InstantiationException | IllegalAccessException ex) {
+                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                             NoSuchMethodException ex) {
                         throw new RuntimeException(ex);
                     }
                 }
@@ -89,8 +91,8 @@ public class Game extends JPanel implements Runnable {
         start();
     }
 
-    private static void pause() throws InstantiationException, IllegalAccessException {
-        StateManager.setState(new PauseScreen(StateManager.getState().newInstance())); //TODO: Throws errors every time, ALSO USING DEPRECATED METHOD!!!!
+    private static void pause() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        StateManager.setState(new PauseScreen(StateManager.getState().getDeclaredConstructor().newInstance()));
     }
 
     private void start() {

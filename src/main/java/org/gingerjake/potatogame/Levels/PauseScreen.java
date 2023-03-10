@@ -49,10 +49,10 @@ public class PauseScreen extends State {
         g.fillRect(0, 0, Game.width, (int) (Game.height * .1));
 
         g.setColor(Color.WHITE);
-        if (isPaused) {
-            g.drawString(Game.build, 20, 60);
-        } else if (isGameOver) {
+        if (isGameOver) {
             g.drawString("GAME OVER", Game.width / 2 - 150, Game.height / 2);
+        } else if (isPaused) {
+            g.drawString(Game.build, 20, 60);
         }
 
         g.setColor(new Color(80, 80, 80, 255));
@@ -70,10 +70,6 @@ public class PauseScreen extends State {
         g.drawString("Quit", 260, (int) (Game.height * .97));
 
         g.setColor(Color.BLACK);
-
-        g.setFont(Game.genericFont);
-        g.setColor(Color.WHITE);
-        g.drawString("Press Enter to Start", (int) (Game.width * .05), Game.height / 2);
     }
 
     public static void optionUp() {
@@ -90,7 +86,13 @@ public class PauseScreen extends State {
 
     public static void select() {
         switch(option) {
-            case 0 -> StateManager.setState(Objects.requireNonNullElseGet(prevState, Hub::new));
+            case 0 -> {
+                StateManager.setState(Objects.requireNonNullElseGet(prevState, Hub::new));
+
+                if(isGameOver) {
+                    isGameOver = false;
+                }
+            }
             case 1 ->Game.exit();
         }
     }
