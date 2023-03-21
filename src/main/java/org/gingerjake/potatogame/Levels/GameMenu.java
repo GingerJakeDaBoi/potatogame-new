@@ -88,14 +88,18 @@ public class GameMenu extends State {
 
     public static void select() {
         switch(option) {
-            case 0 -> {
-                StateManager.setState(Objects.requireNonNullElseGet(prevState, Hub::new));
-
-                if(isGameOver) {
-                    isGameOver = false;
-                }
-            }
-            case 1 ->Game.exit();
+            case 0 -> resume();
+            case 1 -> Game.exit();
         }
+    }
+
+    public static void resume() {
+        StateManager.setState(Objects.requireNonNullElseGet(prevState, Hub::new));
+
+        if(isGameOver) {
+            isGameOver = false;
+        }
+
+        isPaused = false;
     }
 }

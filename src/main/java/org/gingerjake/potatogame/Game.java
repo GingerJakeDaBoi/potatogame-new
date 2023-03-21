@@ -2,6 +2,7 @@ package org.gingerjake.potatogame;
 
 import org.gingerjake.potatogame.Actors.PlayerController;
 import org.gingerjake.potatogame.Levels.GameMenu;
+import org.gingerjake.potatogame.Levels.Hub;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,8 +28,15 @@ public class Game extends JPanel implements Runnable {
         start();
     }
 
-    private static void pause() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        StateManager.setState(new GameMenu(StateManager.getState().getDeclaredConstructor().newInstance()));
+    private static void pause() {
+        try {
+            StateManager.setState(new GameMenu(StateManager.getState().getDeclaredConstructor().newInstance()));
+        } catch(NoSuchMethodException | InstantiationException | IllegalAccessException |
+                InvocationTargetException e) {
+            StateManager.setState(new GameMenu(new Hub()));
+        }
+
+
     }
 
     private void start() {
@@ -54,13 +62,11 @@ public class Game extends JPanel implements Runnable {
 
     public void getKeys() {
         if(input.isKeyDown(Input.Action.PAUSE)) {
-            try {
+            if(!GameMenu.isPaused) {
                 Game.pause();
-            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
-                     InvocationTargetException e) {
-                throw new RuntimeException(e);
+            } else {
+                GameMenu.resume();
             }
-
         }
         if(input.isKeyDown(Input.Action.SELECT)) {
             GameMenu.select();
