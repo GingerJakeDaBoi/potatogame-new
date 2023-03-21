@@ -11,6 +11,7 @@ import java.util.Objects;
 public class GameMenu extends State {
     public static boolean isPaused;
     public static boolean isGameOver;
+    public static boolean isInteracting;
     private int randomImage;
     private static int option;
     private static State prevState;
@@ -94,12 +95,15 @@ public class GameMenu extends State {
     }
 
     public static void resume() {
-        StateManager.setState(Objects.requireNonNullElseGet(prevState, Hub::new));
+        if(!isInteracting) {
+            StateManager.setState(Objects.requireNonNullElseGet(prevState, Hub::new));
 
-        if(isGameOver) {
-            isGameOver = false;
+            if (isGameOver) {
+                isGameOver = false;
+            }
+
+            isPaused = false;
+            isInteracting = true;
         }
-
-        isPaused = false;
     }
 }

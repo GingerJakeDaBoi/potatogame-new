@@ -29,14 +29,16 @@ public class Game extends JPanel implements Runnable {
     }
 
     private static void pause() {
-        try {
-            StateManager.setState(new GameMenu(StateManager.getState().getDeclaredConstructor().newInstance()));
-        } catch(NoSuchMethodException | InstantiationException | IllegalAccessException |
-                InvocationTargetException e) {
-            StateManager.setState(new GameMenu(new Hub()));
+        if(!GameMenu.isInteracting) {
+            try {
+                StateManager.setState(new GameMenu(StateManager.getState().getDeclaredConstructor().newInstance()));
+            } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
+                     InvocationTargetException e) {
+                StateManager.setState(new GameMenu(new Hub()));
+            }
+
+            GameMenu.isInteracting = true;
         }
-
-
     }
 
     private void start() {
@@ -67,6 +69,9 @@ public class Game extends JPanel implements Runnable {
             } else {
                 GameMenu.resume();
             }
+        }
+        if(!input.isKeyDown(Input.Action.PAUSE)) {
+            GameMenu.isInteracting = false;
         }
         if(input.isKeyDown(Input.Action.SELECT)) {
             GameMenu.select();
