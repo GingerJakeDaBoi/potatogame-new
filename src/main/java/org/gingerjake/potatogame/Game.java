@@ -1,11 +1,10 @@
 package org.gingerjake.potatogame;
 
 import org.gingerjake.potatogame.Actors.PlayerController;
-import org.gingerjake.potatogame.Levels.PauseScreen;
+import org.gingerjake.potatogame.Levels.GameMenu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.lang.reflect.InvocationTargetException;
 
 public class Game extends JPanel implements Runnable {
@@ -16,83 +15,20 @@ public class Game extends JPanel implements Runnable {
     public static int height = 900; //900
     private static final double frameCap = 60.0; //going to stay 60 at all times
     public static final boolean debug = true;
+    private final Input input = new Input();
     private final StateManager sm = new StateManager();
     public static final PlayerController player = new PlayerController();
 
     public Game() {
         setPreferredSize(new Dimension(width, height));
         setFocusable(true);
-
-        KeyboardFocusManager keyboardInput = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-
-        keyboardInput.addKeyEventDispatcher(e -> {
-            if (e.getID() == KeyEvent.KEY_PRESSED) {
-                if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    Game.player.setUp(true);
-                }
-                if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    Game.player.setDown(true);
-                }
-                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    Game.player.setLeft(true);
-                    PauseScreen.optionDown();
-                }
-                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    Game.player.setRight(true);
-                    PauseScreen.optionUp();
-                }
-                if (e.getKeyCode() == KeyEvent.VK_W) {
-                    Game.player.attack("up");
-                }
-                if (e.getKeyCode() == KeyEvent.VK_A) {
-                    Game.player.attack("left");
-                }
-                if (e.getKeyCode() == KeyEvent.VK_S) {
-                    Game.player.attack("down");
-                }
-                if (e.getKeyCode() == KeyEvent.VK_D) {
-                    Game.player.attack("right");
-                }
-                if (e.getKeyCode() == KeyEvent.VK_P) {
-                    Game.player.hurt();
-                }
-                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                    Game.player.cancelAttack();
-                }
-                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    try {
-                        Game.pause();
-                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                             NoSuchMethodException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                }
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    PauseScreen.select();
-                }
-            }
-            if (e.getID() == KeyEvent.KEY_RELEASED) {
-                if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    Game.player.setUp(false);
-                }
-                if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    Game.player.setDown(false);
-                }
-                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    Game.player.setLeft(false);
-                }
-                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    Game.player.setRight(false);
-                }
-            }
-            return false;
-        });
+        addKeyListener(input);
 
         start();
     }
 
     private static void pause() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        StateManager.setState(new PauseScreen(StateManager.getState().getDeclaredConstructor().newInstance()));
+        StateManager.setState(new GameMenu(StateManager.getState().getDeclaredConstructor().newInstance()));
     }
 
     private void start() {
@@ -104,7 +40,9 @@ public class Game extends JPanel implements Runnable {
         System.out.println("Guess the game is running now.");
     }
 
-    private void tick() {
+    private void tick() throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+        getKeys();
+
         sm.tick();
     }
 
@@ -112,6 +50,47 @@ public class Game extends JPanel implements Runnable {
         super.paintComponent(g);
         g.clearRect(0, 0, width, height);
         sm.draw(g);
+    }
+
+    public void getKeys() {
+        if(input.isKeyDown(Input.Action.PAUSE)) {
+            try {
+                Game.pause();
+            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
+                     InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+        if(input.isKeyDown(Input.Action.SELECT)) {
+            GameMenu.select();
+        }
+        if(input.isKeyDown(Input.Action.MOVE_LEFT)) {
+            GameMenu.optionDown();
+        }
+        if(input.isKeyDown(Input.Action.MOVE_RIGHT)) {
+            GameMenu.optionUp();
+        }
+        if(input.isKeyDown(Input.Action.FIST_UP)) {
+            Game.player.attack("up");
+        }
+        if(input.isKeyDown(Input.Action.FIST_DOWN)) {
+            Game.player.attack("down");
+        }
+        if(input.isKeyDown(Input.Action.FIST_LEFT)) {
+            Game.player.attack("left");
+        }
+        if(input.isKeyDown(Input.Action.FIST_RIGHT)) {
+            Game.player.attack("right");
+        }
+        if(input.isKeyDown(Input.Action.FIST_CANCEL)) {
+            Game.player.cancelAttack();
+        }
+
+        Game.player.setUp(input.isKeyDown(Input.Action.MOVE_UP));
+        Game.player.setDown(input.isKeyDown(Input.Action.MOVE_DOWN));
+        Game.player.setLeft(input.isKeyDown(Input.Action.MOVE_LEFT));
+        Game.player.setRight(input.isKeyDown(Input.Action.MOVE_RIGHT));
     }
 
     public void run() {
@@ -138,7 +117,12 @@ public class Game extends JPanel implements Runnable {
             }
 
             //float interpolation = Math.min(1.0f, (float) ((now - lastUpdateTime) / updateTime)); //TODO: Maybe find out what this is, may help stuttering on 120hz
-            tick();
+            try {
+                tick();
+            } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException |
+                     InstantiationException e) {
+                throw new RuntimeException(e);
+            }
 
             lastRenderTime = now;
 

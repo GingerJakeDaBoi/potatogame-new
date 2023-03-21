@@ -8,14 +8,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
-public class PauseScreen extends State {
+public class GameMenu extends State {
     public static boolean isPaused;
     public static boolean isGameOver;
     private int randomImage;
     private static int option;
     private static State prevState;
 
-    public PauseScreen(State currentState) {
+    public GameMenu(State currentState) {
         super(sm);
         prevState = currentState;
     }
@@ -29,16 +29,18 @@ public class PauseScreen extends State {
 
     @Override
     public void draw(Graphics g) {
-        switch (randomImage) {
-            case 1 ->
-                    g.drawImage(new ImageIcon("Assets/Dummy/Menu1.png").getImage(), 0, 0, Game.width,
-                            Game.height, null);
-            case 2 ->
-                    g.drawImage(new ImageIcon("Assets/Dummy/Menu2.jpg").getImage(), 0, 0, Game.width,
-                            Game.height, null);
-            case 3 ->
-                    g.drawImage(new ImageIcon("Assets/Dummy/Menu3.png").getImage(), 0, 0, Game.width,
-                            Game.height, null);
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0,Game.width,Game.height);
+
+        if(!isGameOver) {
+            switch (randomImage) {
+                case 1 -> g.drawImage(new ImageIcon("Assets/Dummy/Menu1.png").getImage(), 0, 0, Game.width,
+                        Game.height, null);
+                case 2 -> g.drawImage(new ImageIcon("Assets/Dummy/Menu2.jpg").getImage(), 0, 0, Game.width,
+                        Game.height, null);
+                case 3 -> g.drawImage(new ImageIcon("Assets/Dummy/Menu3.png").getImage(), 0, 0, Game.width,
+                        Game.height, null);
+            }
         }
 
         g.setColor(Color.WHITE);

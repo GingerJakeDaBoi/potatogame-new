@@ -2,7 +2,7 @@ package org.gingerjake.potatogame.Actors;
 
 import org.gingerjake.potatogame.Game;
 import org.gingerjake.potatogame.Levels.Hub;
-import org.gingerjake.potatogame.Levels.PauseScreen;
+import org.gingerjake.potatogame.Levels.GameMenu;
 import org.gingerjake.potatogame.StateManager;
 
 import javax.swing.*;
@@ -247,8 +247,8 @@ public class PlayerController {
 
         if (getHealth() <= 0) {
             System.out.println("haha ur bad");
-            StateManager.setState(new PauseScreen(new Hub()));
-            PauseScreen.isGameOver = true;
+            StateManager.setState(new GameMenu(new Hub()));
+            GameMenu.isGameOver = true;
             setHealth(3);
         }
     }
