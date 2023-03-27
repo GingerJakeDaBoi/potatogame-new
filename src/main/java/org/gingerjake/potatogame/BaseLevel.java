@@ -48,7 +48,7 @@ public class BaseLevel extends State {
 
         if(Game.debug) {
             g.drawString("Player Location: " + Game.player.getX() + ", " +
-                            Game.player.getY(), 0 , 80); //each new debug string is + 40 y
+                    Game.player.getY(), 0 , 80); //each new debug string is + 40 y
             g.drawString("Current JFrame Resolution: " + Game.width  + ", " +
                     Game.height,0,120); //Things are tested at 1600x900
         }
