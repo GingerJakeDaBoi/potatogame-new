@@ -69,8 +69,7 @@ public class Game extends JPanel implements Runnable {
             } else {
                 GameMenu.resume();
             }
-        }
-        if(!input.isKeyDown(Input.Action.PAUSE)) {
+        } else {
             GameMenu.isInteracting = false;
         }
         if(input.isKeyDown(Input.Action.SELECT)) {
